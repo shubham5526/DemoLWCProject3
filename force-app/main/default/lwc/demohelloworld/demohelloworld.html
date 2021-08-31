@@ -5,4 +5,10 @@
         <lightning-input name="companyname" type="text" label="Enter Company Name" value={companyname} onchange={onCompanyNamechangeEvent}></lightning-input>
         <h1>Your name is: {name}</h1>
     </lightning-card>
+    <lightning-button label="Hide p tag" onclick={hidetag}></lightning-button>
+    <lightning-button label="Show p tag" onclick={showtag}></lightning-button>
+    <template if:true={isVisible}>
+        <p>Click on the above button to hide me</p>
+        <h1>Click on the above button to hide me</h1>
+    </template>
 </template>

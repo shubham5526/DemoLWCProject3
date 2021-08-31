@@ -3,9 +3,11 @@ import { LightningElement } from 'lwc';
 export default class Demohelloworld extends LightningElement {
     name;
     companyname;
+    isVisible;
 
     constructor() {
         super();
+        this.isVisible = true;
         console.log('I am from the constructor');
     }
 
@@ -40,5 +42,13 @@ export default class Demohelloworld extends LightningElement {
 
     onCompanyNamechangeEvent(event) {
         this.companyname = event.target.value;
+    }
+
+    hidetag(event) {
+        this.isVisible = false;
+    }
+
+    showtag(event) {
+        this.isVisible = true;
     }
 }
