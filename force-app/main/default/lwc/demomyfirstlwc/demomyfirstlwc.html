@@ -1,0 +1,27 @@
+<template>
+    <div>Hello, World!</div>
+    <div class="name">
+        <div>Name:</div>
+        <div>{AccountName}</div>
+    </div>
+    <template if:true={isFirstLWCVisible}>
+        <lightning-card>
+            <!-- <h1>This is my first LWC</h1>
+            <lightning-input type="text" label="Name" value={firstName} onchange={handleTextOnChange}></lightning-input>
+            <h1>{firstName}</h1> -->
+            <lightning-input label="Object Name" value={objectName} onchange={onChangeObjectName}></lightning-input>
+            <lightning-input label="Filter Name" value={filterName} onchange={onChangeFilterName}></lightning-input>
+            <lightning-button variant="brand" label="Navigate To List View" onclick={navigateToListView} class="slds-float_right" style="margin-right: 1em;"></lightning-button>
+            <lightning-button variant="brand" label="Create New Account" onclick={handleCreateNewAccount} class="slds-float_right" style="margin-right: 1em;"></lightning-button>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="4" padding="around-small">
+                    <c-demomysecondlwc ongetaccountdata={handleAccountData} onresetdata={handleResetData}></c-demomysecondlwc>
+                </lightning-layout-item>
+                <lightning-layout-item size="8" padding="around-small">
+                    <c-showsearchresultgrid search-results={searchDetails}></c-showsearchresultgrid>
+                </lightning-layout-item>
+            </lightning-layout>
+            <lightning-button variant="brand" label="Proceed Next" onclick={handleMoreInfo} class="" style="margin-right: 1em;margin-left: 92%;"></lightning-button>
+        </lightning-card>
+    </template>
+</template>

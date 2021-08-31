@@ -1,0 +1,16 @@
+<template>
+    <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account" class="slds-m-bottom_medium"></lightning-icon>
+    <h1>Input the details for account search</h1>
+    <lightning-combobox required name="accRecType" label="Account Type" value={accType} placeholder="Select Account Type" options={optionsAccType} onchange={handleAccTypeChange} ></lightning-combobox>
+    <lightning-combobox required name="accSource" label="Account Source" value={accSource} placeholder="Select Account Source" options={optionsAccSource} onchange={handleAccSourceChange} ></lightning-combobox>
+    <lightning-input required id="accountName" name="accountName" label="Account Name" type="text" value={accountName} onchange={handleOnChange}></lightning-input>
+    <lightning-input name="accountPhone" label="Phone" type="phone" value={accountPhone} onchange={handleOnChange}></lightning-input>
+    <lightning-input label="Billing Street" type="text" value={billingStreet} onchange={handleOnChangeBillStrt}></lightning-input>
+    <lightning-input label="Billing City" type="text" value={billingCity} onchange={handleOnChangeBillCity}></lightning-input>
+    <lightning-input required label="Billing State" type="text" value={billingState} onchange={handleOnChangeBillState}></lightning-input>
+    <lightning-input label="Billing ZipCode" type="text" value={billingZipcode} onchange={handleOnChangeBillZipCode}></lightning-input>
+    <template if:true={isResetButtonVisible}>
+        <lightning-button variant="brand" label="Reset" title="Click here to clear the data" onclick={handleReset} class="slds-float_left" style="margin-top: 1em;"></lightning-button>
+    </template>
+    <lightning-button variant="brand" label="Search Account" title="Click here to initiate the search" onclick={handleAccountSearch} class="slds-float_right" style="margin-top: 1em;"></lightning-button>
+</template>

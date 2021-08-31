@@ -1,0 +1,23 @@
+<template>
+    <lightning-card>
+        <h1>We found following accounts based on the search parameters</h1>
+        <!-- <lightning-datatable
+                    key-field="id"
+                    data={searchResults}
+                    columns={columns}
+                    onrowaction={handleRowAction}
+                    onsave={handleSave}>
+        </lightning-datatable> -->
+        <c-datatableextended 
+            key-field="id"
+            data={searchResults}
+            columns={columns}
+            onrowaction={handleRowAction}
+            onsave={handleSave}
+            oncheckboxchange={handleGridCheckboxChange}
+            sorted-by={sortedBy}
+            sorted-direction={sortedDirection}
+            onsort={updateColumnSorting}>
+        </c-datatableextended>
+    </lightning-card>
+</template>

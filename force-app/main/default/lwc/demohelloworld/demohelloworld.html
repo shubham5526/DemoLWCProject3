@@ -1,0 +1,8 @@
+<template>
+    <lightning-card  title="Hello">
+        <h1>Hello My First LWC.</h1>
+        <lightning-input name="name" type="text" label="Enter Name" value={name} onchange={onNamechangeEvent}></lightning-input>
+        <lightning-input name="companyname" type="text" label="Enter Company Name" value={companyname} onchange={onCompanyNamechangeEvent}></lightning-input>
+        <h1>Your name is: {name}</h1>
+    </lightning-card>
+</template>

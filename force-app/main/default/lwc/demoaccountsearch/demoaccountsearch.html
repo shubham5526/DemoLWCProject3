@@ -1,0 +1,21 @@
+<template>
+    <lightning-card  title="Hello">
+        <lightning-button label="New" slot="actions"></lightning-button>
+        <p class="slds-p-horizontal_small">Hello my first LWC Component</p>
+        <p slot="footer">Card Footer Changed</p>
+    </lightning-card>
+    <lightning-input value={inputValue} type="text" label="Name" onchange={handleChange}></lightning-input>
+    <h1>The value entered is: {inputValue}</h1>
+    <lightning-radio-group name="radioGroup"
+                          label="Radio Group"
+                          options={options}
+                          value={value}
+                          type="radio"
+                          onchange={handleRadioSelection}></lightning-radio-group>
+    <template if:true={showTemplate}>
+        <h1>This is the conditional Template</h1>
+    </template>
+    <template for:each={dataToIterate} for:item="item">
+        <lightning-input key={item.Id} value={item.AccountName} type="text" label="Name"></lightning-input>
+    </template>
+</template>

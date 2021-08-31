@@ -1,0 +1,19 @@
+<template>
+    <div class="slds-var-m-around_medium">Hello, {greeting}!</div>
+    <template if:true={isVisible}>
+        <lightning-card>
+        <lightning-layout multiple-rows>
+        <lightning-layout-item size="4" padding="around-small">
+            <lightning-button variant="brand" label="Previous"></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item size="8" padding="around-small">
+            <img src={imgURL}>
+            <h1>More details of the account</h1>
+            <h1>Accoun Name: {accountName}</h1>
+            <lightning-input label="Domain" value={domain} readonly></lightning-input>
+            <lightning-input label="Legal Name" value={legalName} readonly></lightning-input>
+        </lightning-layout-item>
+    </lightning-layout>
+</lightning-card>
+    </template>
+</template>

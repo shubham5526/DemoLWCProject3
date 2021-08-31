@@ -1,0 +1,24 @@
+<template>
+    <lightning-card>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="4" padding="around-small">
+                <lightning-combobox
+                name="recordtype"
+                label="Type of Account"
+                value={typeofAccount}
+                placeholder="Select type of account"
+                options={options}
+                onchange={handleRecordTypeChange}
+                >
+                </lightning-combobox>
+                <lightning-input label="Account Name" required value={accountName} onchange={handleAccountNameChange}></lightning-input>
+                <lightning-input label="City" value={cityName} onchange={handleCityNameChange}></lightning-input>
+                <lightning-input label="State" value={stateName} onchange={handleStateNameChange}></lightning-input>
+                <lightning-input label="Zip Code" value={zipCode} onchange={handleZipCodeChange}></lightning-input>
+                <lightning-input label="Country" value={countryName} onchange={handleCountryNameChange}></lightning-input>
+                <lightning-button name="previous" variant="brand" label="Previous" onclick={handleShowAccountSearch} style="margin-top: 1em;" class="slds-float_left my-brand"></lightning-button>
+                <lightning-button name="createAccount" variant="brand" label="Create Account" onclick={createAccount} style="margin-top: 1em;" class="slds-float_right my-brand"></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout> 
+    </lightning-card>
+</template>

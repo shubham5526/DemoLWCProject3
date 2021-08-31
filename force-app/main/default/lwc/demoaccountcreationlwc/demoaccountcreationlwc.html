@@ -1,0 +1,51 @@
+<template>
+    <!-- <h1>This is the CSS Styling</h1> -->
+    <template if:true={showAccountSearch}>
+        <lightning-card>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="4" padding="around-small">
+                    <lightning-input name="accountName" label="Account Name" value={accountName} required onchange={handleInputOnChange}></lightning-input>
+                    <lightning-input name="phone" label="Phone Number" value={phone} required onchange={handleInputOnChange}></lightning-input>
+                    <lightning-input name="stateName" label="State/Province" value={stateName} onchange={handleStateOnChange}></lightning-input>
+                    <lightning-input label="City" value={cityName} onchange={handleCityOnChange}></lightning-input>
+                    <lightning-input label="ZipCode" value={zipcode} onchange={handleZipCodeOnChange}></lightning-input>
+                    <lightning-input label="Country" value={countryName} onchange={handleCountryOnChange}></lightning-input>
+                    <lightning-button class="slds-float_right my-brand" variant="brand" label="Search" style="margin-top: 1em;" onclick={getAccountsData}></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item size="8" padding="around-small">
+                    <div style="margin-bottom: 25%;">
+                        <!-- <lightning-datatable
+                            key-field="id"
+                            data={accountsData}
+                            columns={columns}>
+                            row-number-offset={rowOffset}
+                            onrowaction={handleRowAction}
+                            onsort={updateColumnSorting}
+                            sorted-by={sortedBy}
+                            sorted-direction={sortedDirection}
+                            draft-values={draftValues}
+                            suppress-bottom-bar
+                            onshowdetails={handleonshowdetails}
+                        </lightning-datatable> -->
+                    <c-datatableextended 
+                        columns={columns}
+                        data={accountsData}
+                        key-field="id"
+                        show-row-number-column
+                        hide-checkbox-column
+                        class="dataTable"
+                        oncheckboxchange={handlecheckboxchange}>
+                    </c-datatableextended>
+                    </div>
+                    <lightning-button style="margin-left: 95%;" variant="brand" label="Next" onclick={handleShowAccountCreationForm}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+    </template>
+    <template if:true={showAccountCreate}>
+        <lightning-card>
+            <c-createnewaccountform onshowsearchstep={handlePreviousFromCreateStep} 
+            onhidecreatenewaccount={handleHideCreateNewAccount} account-name={accountName} city-name={cityName} state-name={stateName} zip-code={zipCode} country-name={countryName}></c-createnewaccountform>
+        </lightning-card>
+    </template>
+</template>
