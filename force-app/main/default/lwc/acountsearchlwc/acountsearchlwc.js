@@ -33,12 +33,23 @@ export default class Acountsearchlwc extends LightningElement {
         this.billingZipcode = event.target.value;
     }
 
+    handleReset(event) {
+        var resetData = new CustomEvent('resetsearchresults', {
+            detail: ''
+        });
+        this.dispatchEvent(resetData);
+    }
+
     handleSearch(event) {
         console.log('Initiate the search');
         getAccountDetails()
             .then(results => {
                 console.log('Apex Response Received');
                 console.log(results);
+                var sendData = new CustomEvent('getsearchresults', {
+                    detail: results
+                });
+                this.dispatchEvent(sendData);
             })
             .catch(error => {
                 console.log(results);

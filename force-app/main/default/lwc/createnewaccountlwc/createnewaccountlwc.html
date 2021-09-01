@@ -2,7 +2,7 @@
     <lightning-card>
         <lightning-layout multiple-rows="true">
             <lightning-layout-item padding="around-small" size="4">
-                <c-acountsearchlwc></c-acountsearchlwc>
+                <c-acountsearchlwc ongetsearchresults={handleSearchResults} onresetsearchresults={handleResetResults}></c-acountsearchlwc>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small" size="8">
                 <c-accountsearchresultlwc></c-accountsearchresultlwc>

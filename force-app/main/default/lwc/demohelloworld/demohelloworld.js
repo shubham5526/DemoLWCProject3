@@ -1,9 +1,10 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 export default class Demohelloworld extends LightningElement {
     name;
     companyname;
     isVisible;
+    @api nameOfProperty;
 
     constructor() {
         super();
@@ -50,5 +51,9 @@ export default class Demohelloworld extends LightningElement {
 
     showtag(event) {
         this.isVisible = true;
+
+        this.dispatchEvent(new CustomEvent('nameofcustomevent', {
+            detail: { accNam: 'accountName', accPhone: 'accountPhone' }
+        }));
     }
 }
