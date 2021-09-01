@@ -5,7 +5,7 @@
                 <c-acountsearchlwc ongetsearchresults={handleSearchResults} onresetsearchresults={handleResetResults}></c-acountsearchlwc>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small" size="8">
-                <c-accountsearchresultlwc></c-accountsearchresultlwc>
+                <c-accountsearchresultlwc search-results={searchResultsParent}></c-accountsearchresultlwc>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
