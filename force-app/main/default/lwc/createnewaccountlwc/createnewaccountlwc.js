@@ -2,11 +2,22 @@ import { LightningElement } from 'lwc';
 
 export default class Createnewaccountlwc extends LightningElement {
 
-    searchResultsParent;
+    searchResultsParent = [];
 
     handleSearchResults(event) {
-        console.log(event.detail);
-        this.searchResultsParent = event.detail;
+        try {
+            console.log(event.detail);
+            this.searchResultsParent = [];
+            event.detail.forEach(x => {
+                var data = {
+                    recordId: x.Id,
+                    accountName: x.Name
+                }
+                this.searchResultsParent.push(data);
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     handleResetResults(event) {

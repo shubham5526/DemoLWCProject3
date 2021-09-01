@@ -42,7 +42,7 @@ export default class Acountsearchlwc extends LightningElement {
 
     handleSearch(event) {
         console.log('Initiate the search');
-        getAccountDetails()
+        getAccountDetails({ accNameSearhKey: this.accName, billingState: this.billingState })
             .then(results => {
                 console.log('Apex Response Received');
                 console.log(results);

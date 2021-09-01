@@ -1,5 +1,14 @@
 <template>
     <lightning-card>
         <h1>Grid  Component</h1>
+        <lightning-datatable
+                key-field="recordId"
+                data={searchResults}
+                columns={columns}>
+        </lightning-datatable>
     </lightning-card>
 </template>
+
+<!-- <template for:each={searchResults} for:item="accData">
+    <h1 key={accData.Id}>{accData.Name}</h1>
+</template> -->
