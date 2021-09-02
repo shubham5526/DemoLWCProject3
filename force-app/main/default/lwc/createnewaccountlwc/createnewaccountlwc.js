@@ -1,8 +1,13 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, wire } from 'lwc';
+import accountDetailsMC from '@salesforce/messageChannel/Account_Details__c';
+import { publish, MessageContext } from 'lightning/messageService';
 
 export default class Createnewaccountlwc extends LightningElement {
 
     searchResultsParent = [];
+
+    @wire(MessageContext)
+    messageContext;
 
     handleSearchResults(event) {
         try {
@@ -26,6 +31,11 @@ export default class Createnewaccountlwc extends LightningElement {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    handlePublishMessage(event) {
+        const dataToPublish = { accountDetails: 'Published Message' };
+        publish(this.messageContext, accountDetailsMC, dataToPublish);
     }
 
     handleResetResults(event) {
