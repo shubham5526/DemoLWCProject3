@@ -5,7 +5,7 @@ import { publish, MessageContext } from 'lightning/messageService';
 export default class Createnewaccountlwc extends LightningElement {
 
     searchResultsParent = [];
-
+    accountName;
     @wire(MessageContext)
     messageContext;
 
@@ -13,7 +13,8 @@ export default class Createnewaccountlwc extends LightningElement {
         try {
             console.log(event.detail);
             this.searchResultsParent = [];
-            event.detail.forEach(x => {
+            this.accountName = event.detail.accountName;
+            event.detail.results.forEach(x => {
                 var data = {
                     recordId: x.Id,
                     accountName: x.Name,
@@ -33,8 +34,8 @@ export default class Createnewaccountlwc extends LightningElement {
         }
     }
 
-    handlePublishMessage(event) {
-        const dataToPublish = { accountDetails: 'Published Message' };
+    handlegetAccountDetails(event) {
+        const dataToPublish = { accountDetails: this.accountName };
         publish(this.messageContext, accountDetailsMC, dataToPublish);
     }
 

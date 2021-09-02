@@ -5,9 +5,9 @@
                 <c-acountsearchlwc ongetsearchresults={handleSearchResults} onresetsearchresults={handleResetResults}></c-acountsearchlwc>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small" size="8">
+                <lightning-button label="Get Account Details" variant="brand" onclick={handlegetAccountDetails}></lightning-button>
                 <c-accountsearchresultlwc search-results={searchResultsParent}></c-accountsearchresultlwc>
-                <lightning-button label="Publish Message" onclick={handlePublishMessage}></lightning-button>
-            </lightning-layout-item>
+            </lightning-layout-item>"Get Account Details" button
         </lightning-layout>
     </lightning-card>
 </template>

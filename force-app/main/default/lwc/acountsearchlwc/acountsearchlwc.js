@@ -47,7 +47,7 @@ export default class Acountsearchlwc extends LightningElement {
                 console.log('Apex Response Received');
                 console.log(results);
                 var sendData = new CustomEvent('getsearchresults', {
-                    detail: results
+                    detail: { results: results, accountName: this.accName }
                 });
                 this.dispatchEvent(sendData);
             })
