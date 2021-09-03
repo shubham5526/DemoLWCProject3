@@ -5,4 +5,9 @@
     <targets>
         <target>lightning__AppPage</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage">
+            <property label="year" name="year" type="String" default="2021"/>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>
