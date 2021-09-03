@@ -49,7 +49,7 @@ export default class Createnewaccountlwc extends LightningElement {
     }
 
     enableDisableGetDetails(value) {
-        var inputElements = this.template.querySelectorAll('lightning-button');
+        var inputElements = this.template.querySelectorAll("lightning-button");
         inputElements.forEach(x => {
             if (x.name === 'accDetails') {
                 x.disabled = value;

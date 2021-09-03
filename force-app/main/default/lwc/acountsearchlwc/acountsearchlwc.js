@@ -51,19 +51,39 @@ export default class Acountsearchlwc extends LightningElement {
     }
 
     handleSearch(event) {
-        console.log('Initiate the search');
-        getAccountDetails({ accNameSearhKey: this.accName, billingState: this.billingState })
-            .then(results => {
-                console.log('Apex Response Received');
-                console.log(results);
-                var sendData = new CustomEvent('getsearchresults', {
-                    detail: { results: results, accountName: this.accName }
-                });
-                this.dispatchEvent(sendData);
-            })
-            .catch(error => {
-                console.log(results);
-            })
-        console.log('I got called befor Apex Response');
+        const isInputsCorrect = [...this.template.querySelectorAll("lightning-input")]
+            .reduce((validSoFar, inputField) => {
+                if (inputField.label === "Name" && !inputField.checkValidity()) {
+                    inputField.setCustomValidity('Account Name is required');
+                } else if (inputField.label === "State" && !inputField.checkValidity()) {
+                    inputField.setCustomValidity('State Name is required');
+                }
+                inputField.reportValidity();
+                inputField.setCustomValidity('');
+                return validSoFar && inputField.checkValidity();
+            }, true);
+        console.log('isInputsCorrect: ' + isInputsCorrect);
+        // alert(isInputsCorrect.checkValidity());
+        // if (!isInputsCorrect.checkValidity()) {
+        //     isInputsCorrect.setCustomValidity('Account Name is required');
+        //     isInputsCorrect.reportValidity();
+        //     isInputsCorrect.setCustomValidity('');
+        // }
+        if (isInputsCorrect) {
+            console.log('Initiate the search');
+            getAccountDetails({ accNameSearhKey: this.accName, billingState: this.billingState })
+                .then(results => {
+                    console.log('Apex Response Received');
+                    console.log(results);
+                    var sendData = new CustomEvent('getsearchresults', {
+                        detail: { results: results, accountName: this.accName }
+                    });
+                    this.dispatchEvent(sendData);
+                })
+                .catch(error => {
+                    console.log(results);
+                })
+            console.log('I got called befor Apex Response');
+        }
     }
 }
