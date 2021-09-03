@@ -11,6 +11,7 @@ export default class Createnewaccountlwc extends LightningElement {
 
     handleSearchResults(event) {
         try {
+            this.enableDisableGetDetails(false);
             console.log(event.detail);
             this.searchResultsParent = [];
             this.accountName = event.detail.accountName;
@@ -40,9 +41,19 @@ export default class Createnewaccountlwc extends LightningElement {
     }
 
     handleResetResults(event) {
+        this.enableDisableGetDetails(true);
         console.log(event.detail);
         this.searchResultsParent = event.detail.results;
         const dataToPublish = { accountDetails: event.detail.accName };
         publish(this.messageContext, accountDetailsMC, dataToPublish);
+    }
+
+    enableDisableGetDetails(value) {
+        var inputElements = this.template.querySelectorAll('lightning-button');
+        inputElements.forEach(x => {
+            if (x.name === 'accDetails') {
+                x.disabled = value;
+            }
+        });
     }
 }
