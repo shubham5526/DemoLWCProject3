@@ -28,5 +28,4 @@ export default class Accountdetailslwc extends LightningElement {
         console.log(message);
         this.dataFromMessageChannel = message.accountDetails;
     }
-
 }
