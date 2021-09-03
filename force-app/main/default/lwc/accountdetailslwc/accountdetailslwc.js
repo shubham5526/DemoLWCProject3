@@ -6,12 +6,12 @@ export default class Accountdetailslwc extends LightningElement {
     dataFromMessageChannel;
     messageSubscriber;
     @api isVisible;
-    @api year;
+    //@api year;
 
-    constructor() {
-        super();
-        this.isVisible = true;
-    }
+    // constructor() {
+    //     super();
+    //     this.isVisible = true;
+    // }
 
     @wire(MessageContext)
     messageContext;
