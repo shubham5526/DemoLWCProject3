@@ -34,10 +34,20 @@ export default class Acountsearchlwc extends LightningElement {
     }
 
     handleReset(event) {
+        this.clearFields();
         var resetData = new CustomEvent('resetsearchresults', {
-            detail: ''
+            detail: { results: [], accName: this.accName }
         });
         this.dispatchEvent(resetData);
+    }
+
+    clearFields() {
+        this.accName = '';
+        this.accPhone = '';
+        this.billingStreet = '';
+        this.billingCity = '';
+        this.billingState = '';
+        this.billingZipcode = '';
     }
 
     handleSearch(event) {

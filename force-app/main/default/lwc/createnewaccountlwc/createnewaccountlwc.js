@@ -41,5 +41,8 @@ export default class Createnewaccountlwc extends LightningElement {
 
     handleResetResults(event) {
         console.log(event.detail);
+        this.searchResultsParent = event.detail.results;
+        const dataToPublish = { accountDetails: event.detail.accName };
+        publish(this.messageContext, accountDetailsMC, dataToPublish);
     }
 }
