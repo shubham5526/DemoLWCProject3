@@ -43,12 +43,14 @@ export default class Accountdetailslwc extends LightningElement {
         //syntax
         //fields[apiNameofTheField] = 'Value'
         const fields = {};
+        //fields[NAME_FIELD.fieldApiName] = this.accountDetails.accName;
         fields['Name'] = this.accountDetails.accName;
         fields[BillingStreet_FIELD.fieldApiName] = this.accountDetails.billingStreet;
         fields[BillingState_FIELD.fieldApiName] = this.accountDetails.billingState;
         fields[BillingCity_FIELD.fieldApiName] = this.accountDetails.billingCity;
         fields[BillingPostalCode_FIELD.fieldApiName] = this.accountDetails.billingZipcode;
         fields[BillingCountry_FIELD.fieldApiName] = 'USA';
+        //const recordInput = { apiName: ACCOUNT_OBJECT.fieldApiName, fields };
         const recordInput = { apiName: 'Account', fields };
         createRecord(recordInput)
             .then(x => {
