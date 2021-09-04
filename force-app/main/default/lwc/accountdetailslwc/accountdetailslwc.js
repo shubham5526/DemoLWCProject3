@@ -11,6 +11,7 @@ import BillingPostalCode_FIELD from "@salesforce/schema/Account.BillingPostalCod
 import BillingCountry_FIELD from "@salesforce/schema/Account.BillingCountry";
 
 export default class Accountdetailslwc extends LightningElement {
+    accountDetails;
     accountName;
     messageSubscriber;
     @api isVisible;
@@ -34,18 +35,19 @@ export default class Accountdetailslwc extends LightningElement {
 
     getAccountDetails(message) {
         console.log(message);
-        this.accountName = message.accountDetails;
+        this.accountDetails = message.accountDetails;
+        this.accountName = message.accountDetails.accName;
     }
 
     createNewAccount() {
         //syntax
         //fields[apiNameofTheField] = 'Value'
         const fields = {};
-        fields['Name'] = this.accountName;
-        fields[BillingStreet_FIELD.fieldApiName] = 'Street 101';
-        fields[BillingState_FIELD.fieldApiName] = 'New York';
-        fields[BillingCity_FIELD.fieldApiName] = 'New York';
-        fields[BillingPostalCode_FIELD.fieldApiName] = '73006';
+        fields['Name'] = this.accountDetails.accName;
+        fields[BillingStreet_FIELD.fieldApiName] = this.accountDetails.billingStreet;
+        fields[BillingState_FIELD.fieldApiName] = this.accountDetails.billingState;
+        fields[BillingCity_FIELD.fieldApiName] = this.accountDetails.billingCity;
+        fields[BillingPostalCode_FIELD.fieldApiName] = this.accountDetails.billingZipcode;
         fields[BillingCountry_FIELD.fieldApiName] = 'USA';
         const recordInput = { apiName: 'Account', fields };
         createRecord(recordInput)

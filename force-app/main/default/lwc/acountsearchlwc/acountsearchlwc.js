@@ -36,7 +36,17 @@ export default class Acountsearchlwc extends LightningElement {
     handleReset(event) {
         this.clearFields();
         var resetData = new CustomEvent('resetsearchresults', {
-            detail: { results: [], accName: this.accName }
+            detail: {
+                results: [],
+                accDetails: {
+                    accName: this.accName,
+                    accPhone: this.accPhone,
+                    billingStreet: this.billingStreet,
+                    billingCity: this.billingCity,
+                    billingState: this.billingState,
+                    billingZipcode: this.billingZipcode
+                }
+            }
         });
         this.dispatchEvent(resetData);
     }
@@ -76,7 +86,17 @@ export default class Acountsearchlwc extends LightningElement {
                     console.log('Apex Response Received');
                     console.log(results);
                     var sendData = new CustomEvent('getsearchresults', {
-                        detail: { results: results, accountName: this.accName }
+                        detail: {
+                            results: results,
+                            accDetails: {
+                                accName: this.accName,
+                                accPhone: this.accPhone,
+                                billingStreet: this.billingStreet,
+                                billingCity: this.billingCity,
+                                billingState: this.billingState,
+                                billingZipcode: this.billingZipcode
+                            }
+                        }
                     });
                     this.dispatchEvent(sendData);
                 })
