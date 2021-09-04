@@ -70,13 +70,13 @@ export default class Accountsearchresultlwc extends LightningElement {
                             }
                         }
                     });
+                    this.draftValues = [];
                     this.searchResults = JSON.parse(JSON.stringify(initailSearchResults));
                     console.log(this.searchResults);
                 })
                 .catch(e => {
                     console.log(e);
                 })
-            this.draftValues = [];
         });
     }
 
