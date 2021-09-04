@@ -9,6 +9,11 @@ export default class Createnewaccountlwc extends LightningElement {
     @wire(MessageContext)
     messageContext;
 
+    errorCallback(error, stack) {
+        console.log('errorcallback -parent' + error);
+        console.log(stack);
+    }
+
     handleSearchResults(event) {
         try {
             this.enableDisableGetDetails(false);
