@@ -23,6 +23,7 @@ export default class Accountsearchresultlwc extends LightningElement {
     ];
     @api searchResults;
     accRecordId;
+    draftValues;
 
     @wire(getRecord, { recordId: '$accRecordId', fields: [NAME_FIELD, INDUSTRY_FIELD], optionalFields: [PHONE_FIELD, OWNER_NAME_FIELD] })
     accountData({ error, data }) {
@@ -31,6 +32,10 @@ export default class Accountsearchresultlwc extends LightningElement {
         } else if (error) {
             console.log(error);
         }
+    }
+
+    renderedCallback() {
+        console.log('I am from the renderedCallback');
     }
 
     updateAccountDetails(event) {
@@ -49,27 +54,29 @@ export default class Accountsearchresultlwc extends LightningElement {
             const recordInput = { fields };
             updateRecord(recordInput)
                 .then(updatedRecord => {
+
                     console.log(updatedRecord);
-                    // var initailSearchResults = JSON.parse(JSON.stringify(this.searchResults));
-                    // initailSearchResults.forEach(item => {
-                    //     if (item.recordId === x.recordId) {
-                    //         if (x.accountName !== undefined) {
-                    //             item.accountName = x.accountName;
-                    //         }
-                    //         if (x.accountPhone !== undefined) {
-                    //             item.accountPhone = x.accountPhone;
-                    //         }
-                    //         if (x.annualrevenue !== undefined) {
-                    //             item.annualrevenue = x.annualrevenue;
-                    //         }
-                    //     }
-                    // });
-                    // this.searchResults = JSON.parse(JSON.stringify(initailSearchResults));
-                    // this.searchResults = [...this.searchResults];
+                    var initailSearchResults = JSON.parse(JSON.stringify(this.searchResults));
+                    initailSearchResults.forEach(item => {
+                        if (item.recordId === x.recordId) {
+                            if (x.accountName !== undefined) {
+                                item.accountName = x.accountName;
+                            }
+                            if (x.accountPhone !== undefined) {
+                                item.accountPhone = x.accountPhone;
+                            }
+                            if (x.annualrevenue !== undefined) {
+                                item.annualrevenue = x.annualrevenue;
+                            }
+                        }
+                    });
+                    this.searchResults = JSON.parse(JSON.stringify(initailSearchResults));
+                    console.log(this.searchResults);
                 })
                 .catch(e => {
                     console.log(e);
                 })
+            this.draftValues = [];
         });
     }
 
