@@ -11,8 +11,31 @@
                 draft-values={draftValues}>
         </lightning-datatable>
     </lightning-card>
+    <template if:true={showDetails}>
+        <div class="slds-container_large">
+            <section role="dialog" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate slds-text-title_bold">Account Details</h2>
+                        <div style="max-height: 50em; overflow-y: auto; margin-top: 2%;">
+                            <lightning-input readonly value={accName} label="Account Name"></lightning-input>
+                            <lightning-input readonly value={Industry} label="Industry"></lightning-input>
+                            <lightning-input readonly value={employees} label="Number of Employees"></lightning-input>
+                            <lightning-input readonly value={sic} label="SIC Code"></lightning-input>
+                        </div>
+                    </header>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="brand"
+                                          name="close"
+                                          label="Close"
+                                          title="Click here to close"
+                                          onclick={handleClickClose}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+        </div>
+    </template>
 </template>
-
 <!-- <template for:each={searchResults} for:item="accData">
     <h1 key={accData.Id}>{accData.Name}</h1>
 </template> -->

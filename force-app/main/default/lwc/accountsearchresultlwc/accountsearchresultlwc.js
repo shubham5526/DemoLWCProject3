@@ -7,6 +7,11 @@ import OWNER_NAME_FIELD from '@salesforce/schema/Account.Owner.Name';
 import PHONE_FIELD from '@salesforce/schema/Account.Phone';
 import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
 import AnnualRevenue_FIELD from '@salesforce/schema/Account.AnnualRevenue';
+import Employees_FIELD from '@salesforce/schema/Account.NumberOfEmployees';
+import SIC_FIELD from '@salesforce/schema/Account.Sic';
+import AccountNumber_FIELD from '@salesforce/schema/Account.AccountNumber';
+import BillingAddress_FIELD from '@salesforce/schema/Account.BillingAddress';
+import BillingCity_FIELD from '@salesforce/schema/Account.BillingCity';
 
 const actions = [
     { label: 'Delete Record', name: 'Delete_Record' },
@@ -24,11 +29,32 @@ export default class Accountsearchresultlwc extends LightningElement {
     @api searchResults;
     accRecordId;
     draftValues;
+    showDetails = false;
+    selectedAccDetails;
+    accName;
+    Industry;
+    employees;
+    sic;
+    accountNumber;
+    phone;
+    owner;
 
-    @wire(getRecord, { recordId: '$accRecordId', fields: [NAME_FIELD, INDUSTRY_FIELD], optionalFields: [PHONE_FIELD, OWNER_NAME_FIELD] })
+    @wire(getRecord, {
+        recordId: '$accRecordId',
+        fields: [NAME_FIELD, INDUSTRY_FIELD, Employees_FIELD, SIC_FIELD, AccountNumber_FIELD],
+        optionalFields: [PHONE_FIELD, OWNER_NAME_FIELD]
+    })
     accountData({ error, data }) {
         if (data) {
             console.log(data);
+            this.selectedAccDetails = data.fields;
+            this.accName = this.selectedAccDetails.Name.value;
+            this.Industry = this.selectedAccDetails.Industry.value;
+            this.employees = this.selectedAccDetails.NumberOfEmployees.value;
+            this.sic = this.selectedAccDetails.Name.value;
+            this.accountNumber = this.selectedAccDetails.Sic.value;
+            this.phone = this.selectedAccDetails.Phone.value;
+            this.owner = this.selectedAccDetails.Owner.displayValue;
         } else if (error) {
             console.log(error);
         }
@@ -88,7 +114,12 @@ export default class Accountsearchresultlwc extends LightningElement {
         } else if (actioName === 'Show_Record') {
             this.accRecordId = event.detail.row.recordId;
             console.log(this.accountData);
+            this.showDetails = true;
         }
+    }
+
+    handleClickClose(event) {
+        this.showDetails = false;
     }
 
     deleteRecordMethod(event) {
