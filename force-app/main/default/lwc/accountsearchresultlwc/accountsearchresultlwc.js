@@ -38,6 +38,7 @@ export default class Accountsearchresultlwc extends LightningElement {
     accountNumber;
     phone;
     owner;
+    recFormFields = [NAME_FIELD, INDUSTRY_FIELD, Employees_FIELD, SIC_FIELD, AccountNumber_FIELD, PHONE_FIELD, OWNER_NAME_FIELD];
 
     @wire(getRecord, {
         recordId: '$accRecordId',

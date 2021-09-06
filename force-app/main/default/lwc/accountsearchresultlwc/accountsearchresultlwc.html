@@ -17,13 +17,22 @@
                 <div class="slds-modal__container">
                     <header class="slds-modal__header">
                         <h2 class="slds-text-heading_medium slds-hyphenate slds-text-title_bold">Account Details</h2>
-                        <div style="max-height: 50em; overflow-y: auto; margin-top: 2%;">
-                            <lightning-input readonly value={accName} label="Account Name"></lightning-input>
-                            <lightning-input readonly value={Industry} label="Industry"></lightning-input>
-                            <lightning-input readonly value={employees} label="Number of Employees"></lightning-input>
-                            <lightning-input readonly value={sic} label="SIC Code"></lightning-input>
-                        </div>
                     </header>
+                    <div style="max-height: 60em; overflow-y: auto;">
+                        <!-- <lightning-input readonly value={accName} label="Account Name"></lightning-input>
+                        <lightning-input readonly value={Industry} label="Industry"></lightning-input>
+                        <lightning-input readonly value={employees} label="Number of Employees"></lightning-input>
+                        <lightning-input readonly value={sic} label="SIC Code"></lightning-input> -->
+                        <lightning-card>
+                            <lightning-record-form
+                                record-id={accRecordId}
+                                object-api-name='Account'
+                                fields={recFormFields}
+                                columns="2"
+                                mode="readonly">
+                            </lightning-record-form>
+                    </lightning-card>
+                    </div>
                     <footer class="slds-modal__footer">
                         <lightning-button variant="brand"
                                           name="close"
