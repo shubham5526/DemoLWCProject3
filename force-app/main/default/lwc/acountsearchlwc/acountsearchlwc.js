@@ -62,7 +62,6 @@ export default class Acountsearchlwc extends LightningElement {
     }
 
     handleSearch(event) {
-        this.showLoader = true;
         const isInputsCorrect = [...this.template.querySelectorAll("lightning-input")]
             .reduce((validSoFar, inputField) => {
                 if (inputField.label === "Name" && !inputField.checkValidity()) {
@@ -82,6 +81,7 @@ export default class Acountsearchlwc extends LightningElement {
         //     isInputsCorrect.setCustomValidity('');
         // }
         if (isInputsCorrect) {
+            this.showLoader = true;
             console.log('Initiate the search');
             getAccountDetails({ accNameSearhKey: this.accName, billingState: this.billingState })
                 .then(results => {

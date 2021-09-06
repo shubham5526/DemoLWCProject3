@@ -35,8 +35,15 @@ export default class Accountdetailslwc extends LightningElement {
 
     getAccountDetails(message) {
         console.log(message);
-        this.accountDetails = message.accountDetails;
-        this.accountName = message.accountDetails.accName;
+        if (message != undefined && message.accountDetails != undefined) {
+            this.accountDetails = message.accountDetails;
+            this.accountName = message.accountDetails.accName;
+            this.isVisible = true;
+        } else {
+            this.accountDetails = '';
+            this.accountName = '';
+            this.isVisible = false;
+        }
     }
 
     createNewAccount() {

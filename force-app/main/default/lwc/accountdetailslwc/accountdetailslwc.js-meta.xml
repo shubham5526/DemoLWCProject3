@@ -7,7 +7,7 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__AppPage">
-            <property label="isVisible" name="isVisible" type="Boolean" default="true"/>
+            <property label="isVisible" name="isVisible" type="Boolean" default="false"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
