@@ -1,5 +1,5 @@
 import { LightningElement, api, wire } from 'lwc';
-import { deleteRecord, getRecord, updateRecord, getRecordUi } from 'lightning/uiRecordApi';
+import { deleteRecord, getRecord, updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import Id_FIELD from '@salesforce/schema/Account.Id';
 import NAME_FIELD from '@salesforce/schema/Account.Name';
@@ -33,15 +33,6 @@ export default class Accountsearchresultlwc extends LightningElement {
             console.log(error);
         }
     }
-
-    @wire(getRecordUi, { recordIds: ['0015g00000OxfKOAAZ', '0015g00000NmdGTAAZ'], layoutTypes: ['Full'], modes: ['View'] })
-    accountDataUi({ error, data }) {
-        if (data) {
-            console.log(data);
-        } else if (error) {
-            console.log(error);
-        }
-    };
 
     renderedCallback() {
         console.log('I am from the renderedCallback');
