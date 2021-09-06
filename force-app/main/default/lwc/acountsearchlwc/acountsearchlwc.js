@@ -8,6 +8,7 @@ export default class Acountsearchlwc extends LightningElement {
     billingCity;
     billingState;
     billingZipcode;
+    showLoader = false;
 
     handleAccName(event) {
         this.accName = event.target.value;
@@ -61,6 +62,7 @@ export default class Acountsearchlwc extends LightningElement {
     }
 
     handleSearch(event) {
+        this.showLoader = true;
         const isInputsCorrect = [...this.template.querySelectorAll("lightning-input")]
             .reduce((validSoFar, inputField) => {
                 if (inputField.label === "Name" && !inputField.checkValidity()) {
@@ -85,6 +87,7 @@ export default class Acountsearchlwc extends LightningElement {
                 .then(results => {
                     console.log('Apex Response Received');
                     console.log(results);
+                    this.showLoader = false;
                     var sendData = new CustomEvent('getsearchresults', {
                         detail: {
                             results: results,

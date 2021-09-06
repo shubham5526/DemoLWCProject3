@@ -1,12 +1,20 @@
 <template>
-    <lightning-card>
-        <lightning-input label="Name" required value={accName} onchange={handleAccName}></lightning-input>
-        <lightning-input label="Phone" value={accPhone} onchange={handleAccPhone}></lightning-input>
-        <lightning-input label="Street" value={billingStreet} onchange={handleBillStreet}></lightning-input>
-        <lightning-input label="City" value={billingCity} onchange={handleBillCity}></lightning-input>
-        <lightning-input label="State" required value={billingState} onchange={handleBillState}></lightning-input>
-        <lightning-input label="ZipCode" value={billingZipcode} onchange={handleBillZipcode}></lightning-input>
-        <lightning-button label="Reset" variant="brand" onclick={handleReset} style="margin-top: 2%;" class="slds-float_left"></lightning-button>
-        <lightning-button label="Search" variant="brand" onclick={handleSearch} style="margin-top: 2%;" class="slds-float_right"></lightning-button>
-    </lightning-card>
+    <template if:true={showLoader}>
+        <!-- <div class="exampleHolder">
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </div> -->
+        <div class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+    </template>
+<lightning-card>
+    <lightning-input label="Name" required value={accName} onchange={handleAccName}></lightning-input>
+    <lightning-input label="Phone" value={accPhone} onchange={handleAccPhone}></lightning-input>
+    <lightning-input label="Street" value={billingStreet} onchange={handleBillStreet}></lightning-input>
+    <lightning-input label="City" value={billingCity} onchange={handleBillCity}></lightning-input>
+    <lightning-input label="State" required value={billingState} onchange={handleBillState}></lightning-input>
+    <lightning-input label="ZipCode" value={billingZipcode} onchange={handleBillZipcode}></lightning-input>
+    <lightning-button label="Reset" variant="brand" onclick={handleReset} style="margin-top: 2%;" class="slds-float_left"></lightning-button>
+    <lightning-button label="Search" variant="brand" onclick={handleSearch} style="margin-top: 2%;" class="slds-float_right"></lightning-button>
+</lightning-card>
 </template>
