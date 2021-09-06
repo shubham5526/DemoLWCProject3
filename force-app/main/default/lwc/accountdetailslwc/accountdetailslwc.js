@@ -9,8 +9,10 @@ import BillingCity_FIELD from "@salesforce/schema/Account.BillingCity";
 import BillingState_FIELD from "@salesforce/schema/Account.BillingState";
 import BillingPostalCode_FIELD from "@salesforce/schema/Account.BillingPostalCode";
 import BillingCountry_FIELD from "@salesforce/schema/Account.BillingCountry";
+import { NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class Accountdetailslwc extends LightningElement {
+export default class Accountdetailslwc extends NavigationMixin(LightningElement) {
     accountDetails;
     accountName;
     messageSubscriber;
@@ -62,6 +64,35 @@ export default class Accountdetailslwc extends LightningElement {
         createRecord(recordInput)
             .then(x => {
                 console.log('Account Created: ' + x);
+                // this[NavigationMixin.Navigate]({
+                //     type: 'standard__recordPage',
+                //     attributes: {
+                //         recordId: x.id,
+                //         actionName: 'view'
+                //     }
+                // });
+
+                this[NavigationMixin.GenerateUrl]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: x.id,
+                        actionName: 'view'
+                    }
+                }).then(url => {
+                    console.log(url);
+                    //this.navigationURL = url;
+
+                    this.dispatchEvent(new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Account created succesfully. Click {0}',
+                        variant: 'success',
+                        mode: 'sticky',
+                        messageData: [{
+                            url,
+                            label: 'here'
+                        }]
+                    }))
+                })
             })
             .catch(e => {
                 console.log('Account Creation Error: ' + e);
