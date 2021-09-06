@@ -1,4 +1,8 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
+import { getRecordUi } from 'lightning/uiRecordApi';
+import { getNavItems } from 'lightning/uiAppsApi';
+import { getListInfoByName } from 'lightning/uiListsApi';
+import FORM_FACTOR from '@salesforce/client/formFactor';
 
 export default class Demohelloworld extends LightningElement {
     name;
@@ -6,6 +10,35 @@ export default class Demohelloworld extends LightningElement {
     isVisible;
     @api nameOfProperty;
 
+    @wire(getRecordUi, { recordIds: ['0015g00000OxfKOAAZ', '0015g00000NmdGTAAZ'], layoutTypes: ['Full'], modes: ['View'] })
+    accountDataUi({ error, data }) {
+        if (data) {
+            console.log(data);
+        } else if (error) {
+            console.log(error);
+        }
+    };
+
+    @wire(getNavItems, {
+        formFactor: 'Large',
+        pageSize: 30,
+    })
+    NavItemsData({ error, data }) {
+        if (data) {
+            console.log(data);
+        } else if (error) {
+            console.log(error);
+        }
+    };
+
+    @wire(getListInfoByName, { objectApiName: 'Account', listViewApiName: 'United' })
+    ListViewMetatData({ error, data }) {
+        if (data) {
+            console.log(data);
+        } else if (error) {
+            console.log(error);
+        }
+    };
     constructor() {
         super();
         this.isVisible = true;
