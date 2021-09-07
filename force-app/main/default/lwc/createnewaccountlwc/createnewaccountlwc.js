@@ -1,8 +1,9 @@
 import { LightningElement, wire } from 'lwc';
 import accountDetailsMC from '@salesforce/messageChannel/Account_Details__c';
 import { publish, MessageContext } from 'lightning/messageService';
+import { NavigationMixin } from 'lightning/navigation';
 
-export default class Createnewaccountlwc extends LightningElement {
+export default class Createnewaccountlwc extends NavigationMixin(LightningElement) {
 
     searchResultsParent = [];
     //accountName;
@@ -23,19 +24,30 @@ export default class Createnewaccountlwc extends LightningElement {
             //this.accountName = event.detail.accDetails.accountName;
             this.accountDetails = event.detail.accDetails;
             event.detail.results.forEach(x => {
-                var data = {
-                    recordId: x.Id,
-                    accountName: x.Name,
-                    accountPhone: x.Phone,
-                    website: x.Website,
-                    annualrevenue: x.AnnualRevenue,
-                    billingAddress: (x.BillingAddress.street == undefined ? '' : x.BillingAddress.street) + ' ' +
-                        (x.BillingAddress.city == undefined ? '' : x.BillingAddress.city) + ' ' +
-                        (x.BillingAddress.state == undefined ? '' : x.BillingAddress.state) + ' ' +
-                        (x.BillingAddress.postalCode == undefined ? '' : x.BillingAddress.postalCode) + ' ' +
-                        (x.BillingAddress.country == undefined ? '' : x.BillingAddress.country)
-                }
-                this.searchResultsParent.push(data);
+                this[NavigationMixin.GenerateUrl]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: x.Id,
+                        actionName: 'view'
+                    }
+                }).then(url => {
+                    console.log(url);
+                    var data = {
+                        recordId: x.Id,
+                        accountName: x.Name,
+                        accountPhone: x.Phone,
+                        website: x.Website,
+                        annualrevenue: x.AnnualRevenue,
+                        billingAddress: (x.BillingAddress.street == undefined ? '' : x.BillingAddress.street) + ' ' +
+                            (x.BillingAddress.city == undefined ? '' : x.BillingAddress.city) + ' ' +
+                            (x.BillingAddress.state == undefined ? '' : x.BillingAddress.state) + ' ' +
+                            (x.BillingAddress.postalCode == undefined ? '' : x.BillingAddress.postalCode) + ' ' +
+                            (x.BillingAddress.country == undefined ? '' : x.BillingAddress.country),
+                        accountURL: url
+                    }
+                    this.searchResultsParent.push(data);
+                    this.searchResultsParent = JSON.parse(JSON.stringify(this.searchResultsParent));
+                });
             });
         } catch (e) {
             console.log(e);
