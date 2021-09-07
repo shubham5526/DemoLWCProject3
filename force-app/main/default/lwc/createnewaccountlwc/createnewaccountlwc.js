@@ -65,7 +65,7 @@ export default class Createnewaccountlwc extends NavigationMixin(LightningElemen
                             (x.BillingAddress.postalCode == undefined ? '' : x.BillingAddress.postalCode) + ' ' +
                             (x.BillingAddress.country == undefined ? '' : x.BillingAddress.country),
                         accountURL: url,
-                        accType: x.RecordType.Name
+                        accType: x.RecordTypeId
                             //options: this.options
                     }
                     this.searchResultsParent.push(data);

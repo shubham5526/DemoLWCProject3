@@ -12,25 +12,53 @@ import SIC_FIELD from '@salesforce/schema/Account.Sic';
 import AccountNumber_FIELD from '@salesforce/schema/Account.AccountNumber';
 import BillingAddress_FIELD from '@salesforce/schema/Account.BillingAddress';
 import BillingCity_FIELD from '@salesforce/schema/Account.BillingCity';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 
 const actions = [
     { label: 'Delete Record', name: 'Delete_Record' },
     { label: 'Show Details', name: 'Show_Record' }
 ]
 export default class Accountsearchresultlwc extends LightningElement {
-    options = [
-        { label: 'Corporate', value: 'Corporate' },
-        { label: 'Individual', value: 'Individual' },
-    ];
-    columns = [
-        { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options } },
-        { label: 'Account Name', fieldName: 'accountURL', type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
-        { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
-        { label: 'Website', fieldName: 'website', type: 'url' },
-        { label: 'Billing Address', fieldName: 'billingAddress' },
-        { label: 'Annual Revenue', fieldName: 'annualrevenue', type: 'currency', editable: true },
-        { label: 'Action', type: 'action', typeAttributes: { rowActions: actions } }
-    ];
+    options = [];
+    columns = [];
+    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
+    accountObjData({ data, error }) {
+        if (data) {
+            console.log(data);
+            this.options = [];
+            Object.keys(data.recordTypeInfos).forEach(x => {
+                console.log(data.recordTypeInfos[x].name);
+                console.log(data.recordTypeInfos[x].recordTypeId);
+                if (data.recordTypeInfos[x].name != 'Master') {
+                    var opData = {
+                        label: data.recordTypeInfos[x].name,
+                        value: data.recordTypeInfos[x].recordTypeId
+                    }
+                    this.options.push(opData);
+                }
+            });
+            this.options = JSON.parse(JSON.stringify(this.options))
+            this.columns = [
+                { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options } },
+                { label: 'Account Name', fieldName: 'accountURL', type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
+                { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
+                { label: 'Website', fieldName: 'website', type: 'url' },
+                { label: 'Billing Address', fieldName: 'billingAddress' },
+                { label: 'Annual Revenue', fieldName: 'annualrevenue', type: 'currency', editable: true },
+                { label: 'Action', type: 'action', typeAttributes: { rowActions: actions } }
+            ];
+            this.columns = this.columns;
+        } else {
+            console.log(error);
+        }
+    }
+
+    // options = [
+    //     { label: 'Corporate', value: 'Corporate' },
+    //     { label: 'Individual', value: 'Individual' },
+    // ];
+
     @api searchResults;
     accRecordId;
     draftValues;
