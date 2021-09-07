@@ -19,6 +19,7 @@ const actions = [
 ]
 export default class Accountsearchresultlwc extends LightningElement {
     columns = [
+        { label: 'Account Type', type: 'combobox' },
         { label: 'Account Name', fieldName: 'accountURL', type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
         { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
         { label: 'Website', fieldName: 'website', type: 'url' },

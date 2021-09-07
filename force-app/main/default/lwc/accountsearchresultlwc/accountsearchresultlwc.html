@@ -1,7 +1,15 @@
 <template>
     <lightning-card>
         <h1>Grid  Component</h1>
-        <lightning-datatable
+        <c-datatableextendednew key-field="recordId"
+                data={searchResults}
+                columns={columns}
+                hide-checkbox-column
+                onrowaction={handleRowAction}
+                onsave={updateAccountDetails}
+                draft-values={draftValues}>
+        </c-datatableextendednew>
+        <!-- <lightning-datatable
                 key-field="recordId"
                 data={searchResults}
                 columns={columns}
@@ -9,7 +17,7 @@
                 onrowaction={handleRowAction}
                 onsave={updateAccountDetails}
                 draft-values={draftValues}>
-        </lightning-datatable>
+        </lightning-datatable> -->
     </lightning-card>
     <template if:true={showDetails}>
         <div class="slds-container_large">
