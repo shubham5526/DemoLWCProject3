@@ -2,8 +2,8 @@ import { LightningElement, wire } from 'lwc';
 import accountDetailsMC from '@salesforce/messageChannel/Account_Details__c';
 import { publish, MessageContext } from 'lightning/messageService';
 import { NavigationMixin } from 'lightning/navigation';
-import { getObjectInfo } from 'lightning/uiObjectInfoApi';
-import ACCOUNT_OBJECT from '@salesforce/schema/Account';
+// import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+// import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 
 export default class Createnewaccountlwc extends NavigationMixin(LightningElement) {
 
@@ -13,24 +13,24 @@ export default class Createnewaccountlwc extends NavigationMixin(LightningElemen
     @wire(MessageContext)
     messageContext;
     options = [];
-    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
-    accountObjInfo({ data, error }) {
-        if (data) {
-            console.log(data);
-            Object.keys(data.recordTypeInfos)
-                .forEach(x => {
-                    if (data.recordTypeInfos[x].name != 'Master') {
-                        var opData = {
-                            label: data.recordTypeInfos[x].name,
-                            value: data.recordTypeInfos[x].recordTypeId
-                        }
-                    }
-                })
-            this.options.push(opData);
-        } else if (error) {
-            console.log(error);
-        }
-    };
+    // @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
+    // accountObjInfo({ data, error }) {
+    //     if (data) {
+    //         console.log(data);
+    //         Object.keys(data.recordTypeInfos)
+    //             .forEach(x => {
+    //                 if (data.recordTypeInfos[x].name != 'Master') {
+    //                     var opData = {
+    //                         label: data.recordTypeInfos[x].name,
+    //                         value: data.recordTypeInfos[x].recordTypeId
+    //                     }
+    //                     this.options.push(opData);
+    //                 }
+    //             })
+    //     } else if (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     errorCallback(error, stack) {
         console.log('errorcallback -parent' + error);
