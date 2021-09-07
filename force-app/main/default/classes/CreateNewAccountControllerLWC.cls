@@ -5,7 +5,7 @@ public with sharing class CreateNewAccountControllerLWC {
             System.debug('accNameSearhKey: '+ accNameSearhKey);
             accNameSearhKey = '%' + accNameSearhKey + '%';
             List<Account> accounts = new List<Account>();
-            accounts = [SELECT ID, NAME, Phone, Website, AnnualRevenue, BillingAddress 
+            accounts = [SELECT ID, NAME, Phone, Website, AnnualRevenue, BillingAddress, RecordTypeId, RecordType.Name 
                         FROM Account WHERE Name LIKE: accNameSearhKey OR BillingState=:billingState];
             return accounts;   
         } catch (Exception e) {

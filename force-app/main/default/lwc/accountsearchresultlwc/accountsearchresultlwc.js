@@ -18,8 +18,12 @@ const actions = [
     { label: 'Show Details', name: 'Show_Record' }
 ]
 export default class Accountsearchresultlwc extends LightningElement {
+    options = [
+        { label: 'Corporate', value: 'Corporate' },
+        { label: 'Individual', value: 'Individual' },
+    ];
     columns = [
-        { label: 'Account Type', type: 'combobox' },
+        { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options } },
         { label: 'Account Name', fieldName: 'accountURL', type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
         { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
         { label: 'Website', fieldName: 'website', type: 'url' },

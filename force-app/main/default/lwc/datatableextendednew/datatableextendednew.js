@@ -4,7 +4,7 @@ export default class Datatableextendednew extends LightningDatatable {
     static customTypes = {
         combobox: {
             template: datatableexcombobox,
-            typeAttributes: [],
+            typeAttributes: ['recordType', 'recordTypeoptions'],
         }
     }
 }
