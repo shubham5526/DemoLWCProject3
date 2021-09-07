@@ -3,12 +3,33 @@ import { getRecordUi } from 'lightning/uiRecordApi';
 import { getNavItems } from 'lightning/uiAppsApi';
 import { getListInfoByName } from 'lightning/uiListsApi';
 import FORM_FACTOR from '@salesforce/client/formFactor';
+import { getPicklistValues, getPicklistValuesByRecordType } from 'lightning/uiObjectInfoApi';
+import AccountSource_FIELD from '@salesforce/schema/Account.AccountSource';
+import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 
 export default class Demohelloworld extends LightningElement {
     name;
     companyname;
     isVisible;
     @api nameOfProperty;
+
+    @wire(getPicklistValues, { recordTypeId: '0125g000000uSZCAA2', fieldApiName: AccountSource_FIELD })
+    getAccountSourcePickList({ data, error }) {
+        if (data) {
+            console.log(data);
+        } else {
+            console.log(error);
+        }
+    }
+
+    @wire(getPicklistValuesByRecordType, { recordTypeId: '0125g000000uSZCAA2', objectApiName: ACCOUNT_OBJECT })
+    getAccountPickLists({ data, error }) {
+        if (data) {
+            console.log(data);
+        } else {
+            console.log(error);
+        }
+    }
 
     @wire(getRecordUi, { recordIds: ['0015g00000OxfKOAAZ', '0015g00000NmdGTAAZ'], layoutTypes: ['Full'], modes: ['View'] })
     accountDataUi({ error, data }) {
