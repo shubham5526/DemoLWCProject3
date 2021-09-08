@@ -1,9 +1,14 @@
 <template>
     <template if:true={isVisible}>
     <lightning-card>
-        <lightning-button label="Create New Account" variant="brand" onclick={createNewAccount}></lightning-button>
-        <h1>Account Details</h1>
-        <h1>Published Message: {accountName}</h1>
+        <lightning-layout multiple-rows="true">
+            <lightning-button label="Create New Account" variant="brand" onclick={createNewAccount}></lightning-button>
+            <h1>Account Details</h1>
+            <img src={imgURL}>
+            <h1>Account Name: {accountName}</h1>
+            <h1>Domain Name: {domain}</h1>
+            <h1>Company Legal Name: {legalName}</h1>
+        </lightning-layout>
         <!-- <h1>Year from APP Builder: {year}</h1> -->
     </lightning-card>
     </template>

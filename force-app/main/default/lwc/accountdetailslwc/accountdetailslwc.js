@@ -16,6 +16,9 @@ export default class Accountdetailslwc extends NavigationMixin(LightningElement)
     accountDetails;
     accountName;
     messageSubscriber;
+    imgURL;
+    domain;
+    legalName;
     @api isVisible;
     //@api year;
 
@@ -41,11 +44,57 @@ export default class Accountdetailslwc extends NavigationMixin(LightningElement)
             this.accountDetails = message.accountDetails;
             this.accountName = message.accountDetails.accName;
             this.isVisible = true;
+            this.fetchCompanyWebSite(this.accountName);
         } else {
             this.accountDetails = '';
             this.accountName = '';
             this.isVisible = false;
         }
+    }
+
+    fetchCompanyWebSite(companyName) {
+        fetch('https://company.clearbit.com/v1/domains/find?name=' + companyName, {
+                method: "GET",
+                headers: {
+                    "Accept": "*/*",
+                    "Content-Type": "application/json",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "Authorization": "Bearer sk_6b6f44b87111aeb5f86ec595af49194c"
+                }
+            })
+            .then((response) => {
+                return response.json(); // returning the response in the form of JSON
+            })
+            .then((jsonResponse) => {
+                console.log('jsonResponse ===> ' + JSON.stringify(jsonResponse));
+                this.fetchCompanyDetails(jsonResponse.domain);
+            })
+            .catch(error => {
+                console.log('callout error 1 ===> ' + error);
+            })
+    }
+
+    fetchCompanyDetails(domain) {
+        fetch('https://company.clearbit.com/v2/companies/find?domain=' + domain, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer sk_6b6f44b87111aeb5f86ec595af49194c"
+                }
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((jsonResponse) => {
+                this.imgURL = jsonResponse.logo;
+                this.domain = jsonResponse.domain;
+                this.legalName = jsonResponse.legalName;
+                this.jsonData = JSON.stringify(jsonResponse);
+                console.log('jsonResponse ===> ' + JSON.stringify(jsonResponse));
+            })
+            .catch(error => {
+                console.log('callout error 2 ===> ' + error);
+            })
     }
 
     createNewAccount() {
