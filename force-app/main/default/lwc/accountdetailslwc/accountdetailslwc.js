@@ -9,6 +9,8 @@ import BillingCity_FIELD from "@salesforce/schema/Account.BillingCity";
 import BillingState_FIELD from "@salesforce/schema/Account.BillingState";
 import BillingPostalCode_FIELD from "@salesforce/schema/Account.BillingPostalCode";
 import BillingCountry_FIELD from "@salesforce/schema/Account.BillingCountry";
+import LegalName_FIELD from "@salesforce/schema/Account.Legal_Name__c"
+import Website_FIELD from "@salesforce/schema/Account.Website"
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -108,6 +110,8 @@ export default class Accountdetailslwc extends NavigationMixin(LightningElement)
         fields[BillingCity_FIELD.fieldApiName] = this.accountDetails.billingCity;
         fields[BillingPostalCode_FIELD.fieldApiName] = this.accountDetails.billingZipcode;
         fields[BillingCountry_FIELD.fieldApiName] = 'USA';
+        fields[LegalName_FIELD.fieldApiName] = this.legalName;
+        fields[Website_FIELD.fieldApiName] = this.domain;
         //const recordInput = { apiName: ACCOUNT_OBJECT.fieldApiName, fields };
         const recordInput = { apiName: 'Account', fields };
         createRecord(recordInput)

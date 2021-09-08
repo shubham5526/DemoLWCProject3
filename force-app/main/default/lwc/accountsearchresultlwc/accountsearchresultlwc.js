@@ -41,8 +41,8 @@ export default class Accountsearchresultlwc extends LightningElement {
             });
             this.options = JSON.parse(JSON.stringify(this.options))
             this.columns = [
-                { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options, name: { fieldName: 'recordId' } } },
-                { label: 'Account Name', fieldName: 'accountURL', type: 'url', typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
+                { label: 'Account Type', type: 'combobox', editable: true, typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options, name: { fieldName: 'recordId' } } },
+                { label: 'Account Name', fieldName: 'accountURL', value: { fieldName: 'accountURL' }, type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank', value: { fieldName: 'accountURL' } } },
                 { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
                 { label: 'Website', fieldName: 'website', type: 'url' },
                 { label: 'Billing Address', fieldName: 'billingAddress' },
