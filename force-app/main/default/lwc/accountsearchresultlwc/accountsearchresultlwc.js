@@ -12,6 +12,7 @@ import SIC_FIELD from '@salesforce/schema/Account.Sic';
 import AccountNumber_FIELD from '@salesforce/schema/Account.AccountNumber';
 import BillingAddress_FIELD from '@salesforce/schema/Account.BillingAddress';
 import BillingCity_FIELD from '@salesforce/schema/Account.BillingCity';
+import RecordTypeId_FIELD from '@salesforce/schema/Account.RecordTypeId';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 
@@ -41,7 +42,7 @@ export default class Accountsearchresultlwc extends LightningElement {
             this.options = JSON.parse(JSON.stringify(this.options))
             this.columns = [
                 { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options, name: { fieldName: 'recordId' } } },
-                { label: 'Account Name', fieldName: 'accountURL', type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
+                { label: 'Account Name', fieldName: 'accountURL', type: 'url', typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
                 { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
                 { label: 'Website', fieldName: 'website', type: 'url' },
                 { label: 'Billing Address', fieldName: 'billingAddress' },
@@ -100,7 +101,7 @@ export default class Accountsearchresultlwc extends LightningElement {
 
     updateAccountDetails(event) {
         var editedValues = event.detail.draftValues;
-        if (editedValues == undefined || editedValues.length == 0) {
+        if (this.draftValues == undefined || this.draftValues.length > 0) {
             editedValues = this.draftValues;
         }
         editedValues.forEach(x => {
@@ -114,6 +115,9 @@ export default class Accountsearchresultlwc extends LightningElement {
             }
             if (x.annualrevenue !== undefined) {
                 fields[AnnualRevenue_FIELD.fieldApiName] = x.annualrevenue;
+            }
+            if (x.accType !== undefined) {
+                fields[RecordTypeId_FIELD.fieldApiName] = x.accType;
             }
             const recordInput = { fields };
             updateRecord(recordInput)
