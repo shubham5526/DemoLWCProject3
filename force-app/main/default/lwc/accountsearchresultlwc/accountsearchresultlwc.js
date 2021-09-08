@@ -61,7 +61,7 @@ export default class Accountsearchresultlwc extends LightningElement {
 
     @api searchResults;
     accRecordId;
-    draftValues;
+    draftValues = [];
     showDetails = false;
     selectedAccDetails;
     accName;
@@ -99,7 +99,11 @@ export default class Accountsearchresultlwc extends LightningElement {
     }
 
     updateAccountDetails(event) {
-        event.detail.draftValues.forEach(x => {
+        var editedValues = event.detail.draftValues;
+        if (editedValues == undefined || editedValues.length == 0) {
+            editedValues = this.draftValues;
+        }
+        editedValues.forEach(x => {
             var fields = {};
             fields[Id_FIELD.fieldApiName] = x.recordId;
             if (x.accountName !== undefined) {
@@ -153,6 +157,13 @@ export default class Accountsearchresultlwc extends LightningElement {
     }
 
     handleAccTypeChange(event) {
+        var selectedRecord = this.searchResults.filter(function(value, index, arr) {
+            return value.recordId == event.detail.data.recordId;
+        });
+        selectedRecord = JSON.parse(JSON.stringify(selectedRecord[0]));
+        selectedRecord.accType = event.detail.data.comboboxvalue;
+        this.draftValues.push(selectedRecord);
+        this.draftValues = JSON.parse(JSON.stringify(this.draftValues));
         console.log(event);
     }
 
