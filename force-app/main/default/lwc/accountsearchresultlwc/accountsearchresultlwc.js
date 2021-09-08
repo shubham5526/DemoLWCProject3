@@ -40,7 +40,7 @@ export default class Accountsearchresultlwc extends LightningElement {
             });
             this.options = JSON.parse(JSON.stringify(this.options))
             this.columns = [
-                { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options } },
+                { label: 'Account Type', type: 'combobox', typeAttributes: { recordType: { fieldName: 'accType' }, recordTypeoptions: this.options, name: { fieldName: 'recordId' } } },
                 { label: 'Account Name', fieldName: 'accountURL', type: 'url', editable: true, typeAttributes: { label: { fieldName: 'accountName' }, target: '_blank' } },
                 { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
                 { label: 'Website', fieldName: 'website', type: 'url' },
@@ -150,6 +150,10 @@ export default class Accountsearchresultlwc extends LightningElement {
             console.log(this.accountData);
             this.showDetails = true;
         }
+    }
+
+    handleAccTypeChange(event) {
+        console.log(event);
     }
 
     handleClickClose(event) {

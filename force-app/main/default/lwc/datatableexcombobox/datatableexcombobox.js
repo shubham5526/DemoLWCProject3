@@ -3,7 +3,7 @@ import { LightningElement, api } from 'lwc';
 export default class Datatableexcombobox extends LightningElement {
     @api value = '';
     @api options = [];
-
+    @api name;
     // get options1() {
     //     return [
     //         { label: 'Corporate', value: 'corporate' },
@@ -13,13 +13,14 @@ export default class Datatableexcombobox extends LightningElement {
 
     handleChange(event) {
         this.value = event.detail.value;
-        this.dispatchEvent(new CustomEvent('handleComboboxChange', {
+        this.dispatchEvent(new CustomEvent('handlecomboboxchange', {
             composed: true,
             bubbles: true,
             cancelable: true,
             detail: {
                 data: {
-                    comboboxvalue: this.value
+                    comboboxvalue: this.value,
+                    recordId: this.name
                 }
             }
         }));
