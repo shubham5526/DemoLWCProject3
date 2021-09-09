@@ -13,6 +13,8 @@ import LegalName_FIELD from "@salesforce/schema/Account.Legal_Name__c"
 import Website_FIELD from "@salesforce/schema/Account.Website"
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import Handle_Error from '@salesforce/resourceUrl/errorHandleModule';
+import { loadScript } from 'lightning/platformResourceLoader';
 
 export default class Accountdetailslwc extends NavigationMixin(LightningElement) {
     accountDetails;
@@ -28,6 +30,21 @@ export default class Accountdetailslwc extends NavigationMixin(LightningElement)
     //     super();
     //     this.isVisible = true;
     // }
+
+    renderedCallback() {
+        loadScript(this, Handle_Error)
+            .then(() => console.log('Loaded Handle_Error'))
+            .catch(error => console.log(error));
+        // Promise.all([
+        //         loadScript(this, Handle_Error)
+        //     ])
+        //     .then(() => {
+        //         console.log('Loaded Handle_Error');
+        //     })
+        //     .catch(error => {
+        //         alert(error.body.message);
+        //     });
+    }
 
     @wire(MessageContext)
     messageContext;
@@ -149,47 +166,48 @@ export default class Accountdetailslwc extends NavigationMixin(LightningElement)
             })
             .catch(e => {
                 console.log('Account Creation Error: ' + e);
+                var errorMessage = window.handleError(e, '');
                 this.dispatchEvent(new ShowToastEvent({
                     title: 'Error',
-                    message: this.handleError(e, ''),
+                    message: errorMessage,
                     variant: 'error',
                     mode: 'sticky'
                 }))
             })
     }
 
-    handleError(error, errorMessage) {
-        var message = errorMessage;
-        if (Array.isArray(error.body)) {
-            message = message + ' ' + error.body.map(e => e.message).join(', ')
-        } else if (typeof error.body.message === 'string') {
-            message = message + ' ' + error.body.message
-        }
-        if (error.body != null && error.body.output != null) {
-            if (error.body.output.errors != null && typeof error.body.output.errors === 'object' && error.body.output.errors.length > 0) {
-                error.body.output.errors.forEach(er => {
-                    message = message + ' ' + er.errorCode;
-                    message = message + ' ' + er.message;
-                    if (er.duplicateRecordError != null && typeof er.duplicateRecordError === 'object' && er.duplicateRecordError.matchResults != null && typeof er.duplicateRecordError.matchResults === 'object' && er.duplicateRecordError.matchResults.length > 0) {
-                        message = message + ' Following are the matching records';
-                        er.duplicateRecordError.matchResults.forEach(erMatchRec => {
-                            erMatchRec.matchRecordIds.forEach(matchRec => {
-                                message = message + ' ' + matchRec
-                            })
-                        })
-                    }
-                });
-            } else if (error.body.output.fieldErrors != null && typeof error.body.output.errors === 'object') {
-                Object.keys(error.body.output.fieldErrors).forEach(x => {
-                    console.log(x);
-                    error.body.output.fieldErrors[x].forEach(y => {
-                        message = message + ' ' + y.errorCode;
-                        message = message + ' ' + y.message;
-                    })
-                });
-            }
-        }
-        //this.createLoggerEntry(message);
-        return message
-    }
+    // handleError(error, errorMessage) {
+    //     var message = errorMessage;
+    //     if (Array.isArray(error.body)) {
+    //         message = message + ' ' + error.body.map(e => e.message).join(', ')
+    //     } else if (typeof error.body.message === 'string') {
+    //         message = message + ' ' + error.body.message
+    //     }
+    //     if (error.body != null && error.body.output != null) {
+    //         if (error.body.output.errors != null && typeof error.body.output.errors === 'object' && error.body.output.errors.length > 0) {
+    //             error.body.output.errors.forEach(er => {
+    //                 message = message + ' ' + er.errorCode;
+    //                 message = message + ' ' + er.message;
+    //                 if (er.duplicateRecordError != null && typeof er.duplicateRecordError === 'object' && er.duplicateRecordError.matchResults != null && typeof er.duplicateRecordError.matchResults === 'object' && er.duplicateRecordError.matchResults.length > 0) {
+    //                     message = message + ' Following are the matching records';
+    //                     er.duplicateRecordError.matchResults.forEach(erMatchRec => {
+    //                         erMatchRec.matchRecordIds.forEach(matchRec => {
+    //                             message = message + ' ' + matchRec
+    //                         })
+    //                     })
+    //                 }
+    //             });
+    //         } else if (error.body.output.fieldErrors != null && typeof error.body.output.errors === 'object') {
+    //             Object.keys(error.body.output.fieldErrors).forEach(x => {
+    //                 console.log(x);
+    //                 error.body.output.fieldErrors[x].forEach(y => {
+    //                     message = message + ' ' + y.errorCode;
+    //                     message = message + ' ' + y.message;
+    //                 })
+    //             });
+    //         }
+    //     }
+    //     //this.createLoggerEntry(message);
+    //     return message
+    // }
 }
