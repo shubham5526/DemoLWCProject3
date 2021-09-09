@@ -15,6 +15,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Handle_Error from '@salesforce/resourceUrl/errorHandleModule';
 import { loadScript } from 'lightning/platformResourceLoader';
+import createLogger from '@salesforce/apex/CreateNewAccountControllerLWC.createLogger';
 
 export default class Accountdetailslwc extends NavigationMixin(LightningElement) {
     accountDetails;
@@ -167,6 +168,14 @@ export default class Accountdetailslwc extends NavigationMixin(LightningElement)
             .catch(e => {
                 console.log('Account Creation Error: ' + e);
                 var errorMessage = window.handleError(e, '');
+                var objlog = {
+                    Component_Name__c: 'Accountdetailslwc',
+                    Error__c: errorMessage,
+                    Method_Name__c: 'createNewAccount'
+                };
+                createLogger({ log: objlog })
+                    .then(x => { console.log('Logger Entry Created') })
+                    .catch(e => { console.log(e) });
                 this.dispatchEvent(new ShowToastEvent({
                     title: 'Error',
                     message: errorMessage,

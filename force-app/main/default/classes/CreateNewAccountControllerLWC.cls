@@ -12,4 +12,13 @@ public with sharing class CreateNewAccountControllerLWC {
             throw new AuraHandledException(e.getMessage());
         }
     }
+    
+    @AuraEnabled
+    public static void createLogger(Logger__c log){
+        try {
+            insert log;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
