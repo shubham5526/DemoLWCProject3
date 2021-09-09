@@ -37,6 +37,19 @@ export default class Createnewaccountlwc extends NavigationMixin(LightningElemen
         console.log(stack);
     }
 
+    connectedCallback() {
+        var dataTableStyle = document.createElement('style');
+        dataTableStyle.innerHTML = `
+                                      .redRow{
+                                          background:red
+                                      }
+                                      .greenRow{
+                                          background:green
+                                      }
+                                   `;
+        document.head.appendChild(dataTableStyle);
+    }
+
     handleSearchResults(event) {
         try {
             this.enableDisableGetDetails(false);
@@ -65,8 +78,8 @@ export default class Createnewaccountlwc extends NavigationMixin(LightningElemen
                             (x.BillingAddress.postalCode == undefined ? '' : x.BillingAddress.postalCode) + ' ' +
                             (x.BillingAddress.country == undefined ? '' : x.BillingAddress.country),
                         accountURL: url,
-                        accType: x.RecordTypeId
-                            //options: this.options
+                        accType: x.RecordTypeId,
+                        annualRevClass: (x.AnnualRevenue == undefined ? '' : (x.AnnualRevenue < 50000 ? 'redRow' : 'greenRow'))
                     }
                     this.searchResultsParent.push(data);
                     this.searchResultsParent = JSON.parse(JSON.stringify(this.searchResultsParent));

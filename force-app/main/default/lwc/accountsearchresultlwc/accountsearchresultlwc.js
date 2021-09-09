@@ -46,7 +46,19 @@ export default class Accountsearchresultlwc extends LightningElement {
                 { label: 'Phone', fieldName: 'accountPhone', type: 'phone', editable: true },
                 { label: 'Website', fieldName: 'website', type: 'url' },
                 { label: 'Billing Address', fieldName: 'billingAddress' },
-                { label: 'Annual Revenue', fieldName: 'annualrevenue', type: 'currency', editable: true },
+                {
+                    label: 'Annual Revenue',
+                    fieldName: 'annualrevenue',
+                    type: 'currency',
+                    editable: true,
+                    cellAttributes: {
+                        // iconName: { fieldName: 'annualRevenueIcon' },
+                        // iconLabel: { fieldName: 'annualRevenueIconLabel' },
+                        // iconPosition: 'left',
+                        // iconAlternativeText: 'Annual Revenue Icon',
+                        class: { fieldName: 'annualRevClass' }
+                    }
+                },
                 { label: 'Action', type: 'action', typeAttributes: { rowActions: actions } }
             ];
             this.columns = this.columns;
