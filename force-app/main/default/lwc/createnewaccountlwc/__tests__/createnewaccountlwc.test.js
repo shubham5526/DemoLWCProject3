@@ -1,5 +1,7 @@
 import { createElement } from 'lwc';
 import Createnewaccountlwc from 'c/createnewaccountlwc';
+const mockGetRecord = require("./data/getRecordMock.json");
+import { getRecord } from "lightning/uiRecordApi";
 
 describe('c-createnewaccountlwc', () => {
     afterEach(() => {
@@ -17,4 +19,18 @@ describe('c-createnewaccountlwc', () => {
         const div = element.shadowRoot.querySelector('div');
         expect(div.textContent).toBe('Hello, World!');
     });
+
+    it("Test Account Get Record", () => {
+        const element = createElement('c-createnewaccountlwc', {
+            is: Createnewaccountlwc
+        });
+        document.body.appendChild(element);
+        getRecord.emit(mockGetRecord);
+
+        return Promise.resolve().then(() => {
+            const content = element.shadowRoot.querySelector(".name");
+            const nameField = mockGetRecord.fields.Name.value;
+            expect(content.textContent).toBe(`Name:${nameField}`);
+        });
+    })
 });

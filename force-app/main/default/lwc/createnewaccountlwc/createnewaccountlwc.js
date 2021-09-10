@@ -13,6 +13,7 @@ export default class Createnewaccountlwc extends NavigationMixin(LightningElemen
     @wire(MessageContext)
     messageContext;
     options = [];
+    propWorld = 'World';
     // @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
     // accountObjInfo({ data, error }) {
     //     if (data) {
